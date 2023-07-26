@@ -3,12 +3,9 @@ namespace CSharpUI;
 public class MainPage : ContentPage
 {
 IColours Colours=new Colours();
+IViewFactory ViewFactory;
 public MainPage() {
-	Content = new VerticalStackLayout
-		{
-		Children = {
-			new Label { TextColor=Colours.Foreground, HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, Text = "Welcome to .NET MAUI in C#!"}
-			}
-		};
+    ViewFactory=new ViewFactory(Colours);
+    Content=ViewFactory.NewLabel("Our ViewFactory-generated Label!");
 	}
 }
