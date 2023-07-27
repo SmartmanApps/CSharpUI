@@ -12,14 +12,16 @@ IViewFactory ViewFactory;
 public MainPage() {
     ViewFactory=new ViewFactory(Colours);
     this.SetBinding(ContentPage.BackgroundColorProperty,new Binding(nameof(Colours.Background),source:Colours));
+    MainPageViewModel MPVM=new MainPageViewModel();
 #region views
 #region Buttons
     CounterButton=new Button{
         Text="Click me",
         HorizontalOptions=LayoutOptions.Center,
-        VerticalOptions=LayoutOptions.Center,
+        VerticalOptions=LayoutOptions.End,
         BackgroundColor=Color.FromArgb("#FF0000CC"),
         };
+    CounterButton.SetBinding(Button.CommandProperty,new Binding(nameof(MPVM.ButtonClickedCommand),source:MPVM));
     CounterButton.SetBinding(Button.TextColorProperty,new Binding(nameof(Colours.Foreground),source:Colours));
 #endregion
 #region Images
@@ -37,6 +39,8 @@ public MainPage() {
 #endregion
 #region clickResultsLabel
     Label clickResultsLabel=ViewFactory.NewLabel();
+    clickResultsLabel.HorizontalOptions=LayoutOptions.Center;
+    clickResultsLabel.SetBinding(Label.TextProperty,new Binding(nameof(MPVM.ClickResultsText),source:MPVM));
 #endregion
 #region welcomeLabel
     Label welcomeLabel=ViewFactory.NewLabel("Welcome to .NET Multi-platform App UI... with C# UI!");
